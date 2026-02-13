@@ -87,13 +87,47 @@ namespace SimpleCalculator
             DisplayText.Text = string.IsNullOrEmpty(_expression) ? "0" : _expression;
         }
 
-        // Глобальная обработка клавиш
+        
         private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Back) Button_Backspace_Click(null, null);
-            else if (e.Key == Key.Enter) Button_Equals_Click(null, null);
-            else if (e.Key == Key.Escape) Button_Clear_Click(null, null);
-            // Остальные клавиши можно добавить по аналогии
-        }
+{
+    // Цифры (основная клавиатура и NumPad)
+    if ((e.Key >= Key.D0 && e.Key <= Key.D9)) 
+        AddSymbolFromKey((e.Key - Key.D0).ToString());
+    else if (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+        AddSymbolFromKey((e.Key - Key.NumPad0).ToString());
+
+    // Операторы
+    else if (e.Key == Key.Add || (e.Key == Key.OemPlus && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))) 
+        AddSymbolFromKey("+");
+    else if (e.Key == Key.Subtract || e.Key == Key.OemMinus) 
+        AddSymbolFromKey("-");
+    else if (e.Key == Key.Multiply) 
+        AddSymbolFromKey("*");
+    else if (e.Key == Key.Divide || e.Key == Key.OemQuestion) 
+        AddSymbolFromKey("/");
+
+    else if (e.Key == Key.D9) 
+        AddSymbolFromKey("(");
+    else if (e.Key == Key.D0) 
+        AddSymbolFromKey(")");
+
+    // Служебные клавиши
+    else if (e.Key == Key.Back) 
+        Button_Backspace_Click(null, null);
+    else if (e.Key == Key.Enter) 
+        Button_Equals_Click(null, null);
+    else if (e.Key == Key.Escape) 
+        Button_Clear_Click(null, null);
+    else if (e.Key == Key.Decimal || e.Key == Key.OemComma || e.Key == Key.OemPeriod) 
+        Button_Decimal_Click(null, null);
+}
+
+
+private void AddSymbolFromKey(string symbol)
+{
+    if (_expression == "Ошибка") _expression = "";
+    _expression += symbol;
+    UpdateDisplay();
+}
     }
 }
