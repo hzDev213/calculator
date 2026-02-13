@@ -4,7 +4,8 @@
         Title="Calculator" Height="500" Width="320"
         MinHeight="400" MinWidth="250"
         Background="#1E1E1E"
-        KeyDown="Window_KeyDown" Focusable="True">
+        PreviewKeyDown="Window_KeyDown" 
+        Focusable="True">
     
     <Window.Resources>
         <Style TargetType="Button">
