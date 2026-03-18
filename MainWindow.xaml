@@ -6,7 +6,7 @@
         Background="#1E1E1E"
         PreviewKeyDown="Window_KeyDown" 
         Focusable="True">
-    
+
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="24"/>
@@ -44,7 +44,15 @@
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/> <RowDefinition Height="3*"/> <RowDefinition Height="2*"/> <RowDefinition Height="2*"/> <RowDefinition Height="2*"/> <RowDefinition Height="2*"/> <RowDefinition Height="2*"/> <RowDefinition Height="2*"/> </Grid.RowDefinitions>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="82*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="54.593"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="55*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
