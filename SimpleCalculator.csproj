@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SimpleCalculatorFactory\**" />
+    <Compile Remove="SimpleCalculatorMVVM\**" />
+    <EmbeddedResource Remove="SimpleCalculatorFactory\**" />
+    <EmbeddedResource Remove="SimpleCalculatorMVVM\**" />
+    <None Remove="SimpleCalculatorFactory\**" />
+    <None Remove="SimpleCalculatorMVVM\**" />
+    <Page Remove="SimpleCalculatorFactory\**" />
+    <Page Remove="SimpleCalculatorMVVM\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>

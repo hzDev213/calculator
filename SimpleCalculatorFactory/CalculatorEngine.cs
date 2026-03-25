@@ -3,7 +3,7 @@ using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SimpleCalculator
+namespace SimpleCalculatorFactory
 {
     public class CalculatorEngine
     {

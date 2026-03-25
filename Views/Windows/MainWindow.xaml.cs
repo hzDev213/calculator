@@ -7,7 +7,7 @@ namespace SimpleCalculator
 {
     public partial class MainWindow : Window
     {
-        private CalculatorEngine _engine;
+        private SimpleCalculator.CalculatorEngine _engine;
         private string _expression = "";
 
         public MainWindow()
