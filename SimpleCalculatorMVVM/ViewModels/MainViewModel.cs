@@ -1,13 +1,12 @@
-﻿using SimpleCalculatorMVVM.Factories.ButtonFactories;
+﻿using SimpleCalculatorMVVM.Commands;
+using SimpleCalculatorMVVM.Factories.ButtonFactories;
 using SimpleCalculatorMVVM.Models.Buttons;
 using SimpleCalculatorMVVM.Services.Calculators;
-using SimpleCalculator.ViewModels.Base;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Collections.ObjectModel;
-using SimpleCalculatorMVVM.Commands.Base;
 
 namespace SimpleCalculatorMVVM.ViewModels
 {
@@ -69,7 +68,7 @@ namespace SimpleCalculatorMVVM.ViewModels
                 {
                     DisplayText = DisplayText == "0" ? "0" : DisplayText + operator_;
                 }
-                else 
+                else
                 {
                     HistoryText = DisplayText;
                     DisplayText = _calculator.Calculate(DisplayText) + operator_;
@@ -103,7 +102,7 @@ namespace SimpleCalculatorMVVM.ViewModels
             else
             {
                 DisplayText = DisplayText.Substring(0, DisplayText.Length - 1);
-            }        
+            }
         }
         #endregion
 
@@ -172,7 +171,7 @@ namespace SimpleCalculatorMVVM.ViewModels
                 Buttons.Add(UIButton);
 
                 ApplyStyle(UIButton);
-                
+
                 // Устанавливаем кнопки на грид
                 if (button is DigitButton)
                 {

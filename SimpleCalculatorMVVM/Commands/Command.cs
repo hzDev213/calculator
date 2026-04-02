@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace SimpleCalculator.Commands.Base
+namespace SimpleCalculatorMVVM.Commands
 {
     internal abstract class Command : ICommand
     {
