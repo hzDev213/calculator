@@ -1,10 +1,11 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SimpleCalculatorMVVM.Services.Calculators
+namespace SimpleCalculator
 {
-    public class CalculatorEngine : ICalculator
+    public class CalculatorEngine
     {
         public string Calculate(string expression)
         {
