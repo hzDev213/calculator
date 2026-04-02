@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleCalculatorMVVM"
         xmlns:vm="clr-namespace:SimpleCalculatorMVVM.ViewModels"
-        xmlns:c="clr-namespace:SimpleCalculator.Commands"
         
         mc:Ignorable="d"
         Title="Calculator" Height="500" Width="320"

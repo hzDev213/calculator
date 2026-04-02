@@ -2,13 +2,12 @@
 using SimpleCalculatorMVVM.Models.Buttons;
 using SimpleCalculatorMVVM.Services.Calculators;
 using SimpleCalculator.ViewModels.Base;
-using SimpleCalculator.Commands;
-
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Collections.ObjectModel;
+using SimpleCalculatorMVVM.Commands.Base;
 
 namespace SimpleCalculatorMVVM.ViewModels
 {

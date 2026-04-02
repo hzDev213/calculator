@@ -1,11 +1,10 @@
-﻿using SimpleCalculator.Commands.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleCalculator.Commands
+namespace SimpleCalculatorMVVM.Commands.Base
 {
     internal class RelayCommand : Command
     {
