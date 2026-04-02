@@ -1,5 +1,4 @@
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -41,9 +40,9 @@ namespace SimpleCalculatorMVVM.Services.Calculators
                 // 5. Финальный расчет всей строки через DataTable
                 DataTable table = new DataTable();
                 var result = table.Compute(processedExpr, string.Empty);
-                
+
                 double finalResult = Convert.ToDouble(result);
-                
+
                 // Округляем до 10 знаков, чтобы избежать мусора типа 0.0000000000000001
                 return Math.Round(finalResult, 10).ToString();
             }

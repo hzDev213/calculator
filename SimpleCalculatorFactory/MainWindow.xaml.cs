@@ -11,7 +11,7 @@ namespace SimpleCalculatorFactory
     {
         private CalculatorEngine _engine;
         private string _expression = "";
-        private List<IButton>_buttons;
+        private List<IButton> _buttons;
 
         public MainWindow()
         {

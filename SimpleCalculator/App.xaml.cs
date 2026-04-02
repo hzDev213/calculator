@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace SimpleCalculatorFactory
+namespace SimpleCalculator
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,11 +1,10 @@
-﻿using SimpleCalculator.Commands.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleCalculator.Commands
+namespace SimpleCalculatorMVVM.Commands
 {
     internal class RelayCommand : Command
     {
@@ -19,7 +18,6 @@ namespace SimpleCalculator.Commands
         }
 
         public override bool CanExecute(object? parameter) => _canExecute?.Invoke(parameter) ?? true;
-
         public override void Execute(object? parameter) => _execute(parameter);
     }
 }

@@ -63,7 +63,7 @@ namespace SimpleCalculatorFactory
     #region Конретные фабрики
     public class CommonCalculatorFactory : IButtonFactory
     {
-        List<IButton> _buttonsList = null;
+        List<IButton>? _buttonsList = null;
         public IButton CreateDigitButton(int digit) => new DigitButton(digit);
         public IButton CreateOperatorButton(string operator_) => new OperatorButton(operator_);
         public IButton CreateEqualsButton() => new EqualsButton();
