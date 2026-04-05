@@ -3,6 +3,7 @@ using SimpleCalculatorMVVM.Factories.ButtonFactories;
 using SimpleCalculatorMVVM.Models.Buttons;
 using SimpleCalculatorMVVM.Services.Calculators;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
