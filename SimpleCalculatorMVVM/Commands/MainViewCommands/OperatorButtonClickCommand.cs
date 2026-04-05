@@ -9,7 +9,7 @@ namespace SimpleCalculatorMVVM.Commands.MainViewCommands
         Action<string> _setText;
         Func<string> _getText;
         Action<string> _setHistory;
-        OperatorButtonClickCommand(Action<string> SetText, Func<string> GetText, Action<string> SetHistory)
+        public OperatorButtonClickCommand(Action<string> SetText, Func<string> GetText, Action<string> SetHistory)
         {
             _calculator = new CalculatorEngine();
 

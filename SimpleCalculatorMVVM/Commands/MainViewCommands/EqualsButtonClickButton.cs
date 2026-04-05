@@ -15,7 +15,7 @@ namespace SimpleCalculatorMVVM.Commands.MainViewCommands
         private Action<string> _setResult;
         private Func<string> _getHistory;
         private Action<string> _setHistory;
-        EqualsButtonClickButton(Func<string> GetResult, Action<string> SetResult, Func<string> GetHistory, Action<string> SetHistory)
+        public EqualsButtonClickButton(Func<string> GetResult, Action<string> SetResult, Func<string> GetHistory, Action<string> SetHistory)
         {
             _calculator = new CalculatorEngine();
 

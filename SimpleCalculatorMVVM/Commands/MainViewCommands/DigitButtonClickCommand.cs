@@ -4,7 +4,7 @@
     {
         private Action<string> _displayText;
         private Func<string> _getText;
-        DigitButtonClickCommand(Func<string> GetText, Action<string> DisplayText) 
+        public DigitButtonClickCommand(Func<string> GetText, Action<string> DisplayText) 
         {
             _displayText = DisplayText;
             _getText = GetText;

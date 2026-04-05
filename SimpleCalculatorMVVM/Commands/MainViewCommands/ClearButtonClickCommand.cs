@@ -10,7 +10,7 @@ namespace SimpleCalculatorMVVM.Commands.MainViewCommands
     {
         private Action<string> _setResult;
         private Action<string> _setHistory;
-        ClearButtonClickCommand(Action<string> SetResult, Action<string> SetHistory)
+        public ClearButtonClickCommand(Action<string> SetResult, Action<string> SetHistory)
         {
             _setResult = SetResult;
             _setHistory = SetHistory;

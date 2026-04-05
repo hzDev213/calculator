@@ -10,7 +10,7 @@ namespace SimpleCalculatorMVVM.Commands.MainViewCommands
     {
         private Func<string> _getResult;
         private Action<string> _setResult;
-        DeleteLastSymbolButtonClickCommand(Func<string> GetResult, Action<string> SetResult)
+        public DeleteLastSymbolButtonClickCommand(Func<string> GetResult, Action<string> SetResult)
         {
             _getResult = GetResult;
             _setResult = SetResult;
