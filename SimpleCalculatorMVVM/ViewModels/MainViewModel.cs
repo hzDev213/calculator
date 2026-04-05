@@ -95,7 +95,6 @@ namespace SimpleCalculatorMVVM.ViewModels
         private bool CanDeleteLastSymbolButtonClickCommandExecute(object? p) => true;
         private void OnDeleteLastSymbolButtonClickCommandExecuted(object? p)
         {
-
             if (DisplayText.Length == 1)
             {
                 DisplayText = "0";
