@@ -29,7 +29,7 @@
         <ItemsControl ItemsSource="{Binding Buttons}" Grid.Row="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid>
+                    <Grid x:Name="ButtonsContainer">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
