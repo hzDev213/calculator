@@ -11,15 +11,57 @@ namespace SimpleCalculatorMVVM
     public partial class MainWindow : Window
     {
         private MainWindowViewModel _viewModel;
-        private Grid _buttonGrid;
+        private readonly Dictionary<Key, (ICommand Command, object? Parameter)> _keyMappings;
         public MainWindow()
         {
             InitializeComponent();
 
             _viewModel = (MainWindowViewModel)DataContext;
-            _buttonGrid = (Grid)FindName("ButtonsContainer");
+            _keyMappings = new Dictionary<Key, (ICommand, object?)>
+            {
+                [Key.D0] = (_viewModel.DigitButtonClickCommand, "0"),
+                [Key.D1] = (_viewModel.DigitButtonClickCommand, "1"),
+                [Key.D2] = (_viewModel.DigitButtonClickCommand, "2"),
+                [Key.D3] = (_viewModel.DigitButtonClickCommand, "3"),
+                [Key.D4] = (_viewModel.DigitButtonClickCommand, "4"),
+                [Key.D5] = (_viewModel.DigitButtonClickCommand, "5"),
+                [Key.D6] = (_viewModel.DigitButtonClickCommand, "6"),
+                [Key.D7] = (_viewModel.DigitButtonClickCommand, "7"),
+                [Key.D8] = (_viewModel.DigitButtonClickCommand, "8"),
+                [Key.D9] = (_viewModel.DigitButtonClickCommand, "9"),
+
+                [Key.NumPad0] = (_viewModel.DigitButtonClickCommand, "0"),
+                [Key.NumPad1] = (_viewModel.DigitButtonClickCommand, "1"),
+                [Key.NumPad2] = (_viewModel.DigitButtonClickCommand, "2"),
+                [Key.NumPad3] = (_viewModel.DigitButtonClickCommand, "3"),
+                [Key.NumPad4] = (_viewModel.DigitButtonClickCommand, "4"),
+                [Key.NumPad5] = (_viewModel.DigitButtonClickCommand, "5"),
+                [Key.NumPad6] = (_viewModel.DigitButtonClickCommand, "6"),
+                [Key.NumPad7] = (_viewModel.DigitButtonClickCommand, "7"),
+                [Key.NumPad8] = (_viewModel.DigitButtonClickCommand, "8"),
+                [Key.NumPad9] = (_viewModel.DigitButtonClickCommand, "9"),
+
+                [Key.Add] = (_viewModel.OperatorButtonClickCommand, "+"),
+                [Key.OemPlus] = (_viewModel.OperatorButtonClickCommand, "+"),
+                [Key.Subtract] = (_viewModel.OperatorButtonClickCommand, "-"),
+                [Key.OemMinus] = (_viewModel.OperatorButtonClickCommand, "-"),
+                [Key.Multiply] = (_viewModel.OperatorButtonClickCommand, "*"),
+                [Key.Divide] = (_viewModel.OperatorButtonClickCommand, "/"),
+                [Key.OemQuestion] = (_viewModel.OperatorButtonClickCommand, "/"),  // / на русской раскладке
+
+                [Key.Decimal] = (_viewModel.PointButtonClickCommand, "."),
+                [Key.OemPeriod] = (_viewModel.PointButtonClickCommand, "."),
+                [Key.OemComma] = (_viewModel.PointButtonClickCommand, "."),
+
+                [Key.Enter] = (_viewModel.EqualsButtonClickCommand, null),
+                [Key.Return] = (_viewModel.EqualsButtonClickCommand, null),
+                [Key.Back] = (_viewModel.DeleteLastSymbolButtonClickCommand, null),
+                [Key.Delete] = (_viewModel.ClearButtonClickCommand, null),
+                [Key.Escape] = (_viewModel.ClearButtonClickCommand, null),
+            };
 
             CreateButtons();
+            this.KeyDown += OnKeyDown;
         }
         private void CreateButtons()
         {
@@ -155,6 +197,21 @@ namespace SimpleCalculatorMVVM
             {
                 button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
                 button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
+            }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            bool isCtrlPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Control);
+            bool isAltPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Alt);
+
+            if (!isCtrlPressed && !isAltPressed)
+            {
+                if (_keyMappings.TryGetValue(e.Key, out var mapping))
+                {
+                    mapping.Command.Execute(mapping.Parameter);
+                    e.Handled = true;
+                }
             }
         }
     }
