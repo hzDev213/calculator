@@ -126,6 +126,32 @@ namespace SimpleCalculatorMVVMDecorator.ViewModels
         }
         #endregion
 
+        #region ConstButtonClickCommand
+
+        public ICommand ConstButtonClickCommand { get; }
+        private bool CanConstButtonClickCommandExecute(object? p) => true;
+        private void OnConstButtonClickCommandExecuted(object? p)
+        {
+            string[] operators = { "+", "-", "*", "/" };
+
+            string? symbol = p?.ToString();
+            if (symbol != null)
+            {
+                if (DisplayText == "0") DisplayText = symbol;
+
+                foreach (var operator_ in operators)
+                {
+                    if (DisplayText[DisplayText.Length - 1].ToString() == operator_)
+                    {
+                        DisplayText = DisplayText + symbol;
+                        return;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -160,6 +186,11 @@ namespace SimpleCalculatorMVVMDecorator.ViewModels
             );
 
             PointButtonClickCommand = new PointButtonClickCommand(
+                GetResult: () => DisplayText,
+                SetResult: (value) => DisplayText = value
+            );
+
+            ConstButtonClickCommand = new ConstButtonClickCommand(
                 GetResult: () => DisplayText,
                 SetResult: (value) => DisplayText = value
             );

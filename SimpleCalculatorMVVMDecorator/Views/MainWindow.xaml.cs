@@ -10,6 +10,8 @@ namespace SimpleCalculatorMVVMDecorator
 {
     public partial class MainWindow : Window
     {
+        private bool _pKeyPrivious = false;
+
         private MainWindowViewModel _viewModel;
         private readonly Dictionary<Key, (ICommand Command, object? Parameter)> _keyMappings;
         public MainWindow()
@@ -40,6 +42,8 @@ namespace SimpleCalculatorMVVMDecorator
                 [Key.NumPad7] = (_viewModel.DigitButtonClickCommand, "7"),
                 [Key.NumPad8] = (_viewModel.DigitButtonClickCommand, "8"),
                 [Key.NumPad9] = (_viewModel.DigitButtonClickCommand, "9"),
+
+                [Key.C] = (_viewModel.ClearButtonClickCommand, null),
 
                 [Key.Add] = (_viewModel.OperatorButtonClickCommand, "+"),
                 [Key.OemPlus] = (_viewModel.OperatorButtonClickCommand, "+"),
@@ -94,6 +98,14 @@ namespace SimpleCalculatorMVVMDecorator
                     Grid.SetRow(UIButton, int.Parse(button.OnClick()) / 3 + 1);
                     Grid.SetColumn(UIButton, int.Parse(button.OnClick()) % 3);
                 }
+                else if (button is ConstButton)
+                {
+                    UIButton.Command = _viewModel.ConstButtonClickCommand;
+                    UIButton.CommandParameter = button.OnClick();
+
+                    Grid.SetRow(UIButton, 0);
+                    Grid.SetColumn(UIButton, 0);
+                }
                 else if (button is OperatorButton)
                 {
                     UIButton.Command = _viewModel.OperatorButtonClickCommand;
@@ -116,7 +128,8 @@ namespace SimpleCalculatorMVVMDecorator
                     UIButton.Command = _viewModel.ClearButtonClickCommand;
 
                     Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 0);
+                    Grid.SetColumn(UIButton, 2);
+                    Grid.SetColumnSpan(UIButton, 2);
                 }
                 else if (button is PointButton)
                 {
@@ -173,6 +186,11 @@ namespace SimpleCalculatorMVVMDecorator
                 button.Background = new SolidColorBrush(Color.FromRgb(45, 45, 45));
                 button.Foreground = Brushes.White;
             }
+            else if (logicButton is ConstButton)
+            {
+                button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
+                button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
+            }
             else if (logicButton is OperatorButton)
             {
                 button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
@@ -207,6 +225,15 @@ namespace SimpleCalculatorMVVMDecorator
 
             if (!isCtrlPressed && !isAltPressed)
             {
+                if (e.Key == Key.P) _pKeyPrivious = true;
+                if (e.Key == Key.I && _pKeyPrivious)
+                {
+                    _viewModel.ConstButtonClickCommand.Execute("π");
+                    _pKeyPrivious = false;
+                    e.Handled = true;
+
+                    return;
+                }
                 if (_keyMappings.TryGetValue(e.Key, out var mapping))
                 {
                     mapping.Command.Execute(mapping.Parameter);

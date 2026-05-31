@@ -13,9 +13,8 @@ namespace SimpleCalculatorMVVMDecorator.Services.Calculators
                 if (string.IsNullOrEmpty(expression)) return "0";
 
                 // 1. Подготовка: заменяем запятые на точки для стандарта вычислений
-                // и заменяем символ Пи на его числовое значение
                 string processedExpr = expression.Replace(",", ".");
-                processedExpr = processedExpr.Replace("π", Math.PI.ToString(CultureInfo.InvariantCulture));
+                //processedExpr = processedExpr.Replace("π", Math.PI.ToString(CultureInfo.InvariantCulture));
 
                 // 2. Обработка КОРНЯ: sqrt(x)
                 processedExpr = Regex.Replace(processedExpr, @"sqrt\(([^)]+)\)", m =>

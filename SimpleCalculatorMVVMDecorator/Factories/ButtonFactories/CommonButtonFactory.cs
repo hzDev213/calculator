@@ -16,10 +16,12 @@ namespace SimpleCalculatorMVVMDecorator.Factories.ButtonFactories
         public IButton CreateClearButton() => new ClearButton();
         public IButton CreatePointButton() => new PointButton();
         public IButton CreateDeleteLastSymbolButton() => new DeleteLastSymbolButton();
+        public IButton CreateConstButton(string symbol) => new ConstButton(symbol);
 
         public List<IButton> GetAllButtons()
         {
             string[] operators = { "+", "-", "*", "/" };
+            string[] consts = { "π" };
             var buttonsList = new List<IButton>();
 
             for (int i = 0; i < 10; ++i)
@@ -29,6 +31,10 @@ namespace SimpleCalculatorMVVMDecorator.Factories.ButtonFactories
             foreach (var operotor in operators)
             {
                 buttonsList.Add(CreateOperatorButton(operotor));
+            }
+            foreach (var constant in consts)
+            {
+                buttonsList.Add(CreateConstButton(constant));
             }
 
             buttonsList.Add(CreateEqualsButton());
