@@ -156,11 +156,15 @@ namespace SimpleCalculatorMVVMDecorator.ViewModels
 
         public MainWindowViewModel()
         {
+            // При создании калькулятора используем декоратор для обработки числа π
+            _calculator = new EnginePiDecorator(new CalculatorEngine());
+            _buttons = new ObservableCollection<Button>();
+
             #region Commands
             DigitButtonClickCommand = new DigitButtonClickCommand(
-                            GetText: () => DisplayText,
-                            DisplayText: (value) => DisplayText = value
-                        );
+                GetText: () => DisplayText,
+                DisplayText: (value) => DisplayText = value
+            );
 
             OperatorButtonClickCommand = new OperatorButtonClickCommand(
                 SetText: (value) => DisplayText = value,
@@ -179,6 +183,7 @@ namespace SimpleCalculatorMVVMDecorator.ViewModels
             );
 
             EqualsButtonClickCommand = new EqualsButtonClickCommand(
+                Calculator: _calculator,
                 GetResult: () => DisplayText,
                 SetResult: (value) => DisplayText = value,
                 GetHistory: () => HistoryText,
@@ -196,9 +201,6 @@ namespace SimpleCalculatorMVVMDecorator.ViewModels
             );
 
             #endregion
-
-            _calculator = new CalculatorEngine();
-            _buttons = new ObservableCollection<Button>();
         }
     }
 }

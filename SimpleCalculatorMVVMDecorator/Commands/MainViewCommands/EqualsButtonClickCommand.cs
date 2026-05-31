@@ -9,16 +9,15 @@ namespace SimpleCalculatorMVVMDecorator.Commands.MainViewCommands
 {
     public class EqualsButtonClickCommand : Command
     {
-        CalculatorEngine _calculator;
+        ICalculator _calculator;
 
         private Func<string> _getResult;
         private Action<string> _setResult;
         private Func<string> _getHistory;
         private Action<string> _setHistory;
-        public EqualsButtonClickCommand(Func<string> GetResult, Action<string> SetResult, Func<string> GetHistory, Action<string> SetHistory)
+        public EqualsButtonClickCommand(ICalculator Calculator, Func<string> GetResult, Action<string> SetResult, Func<string> GetHistory, Action<string> SetHistory)
         {
-            _calculator = new CalculatorEngine();
-
+            _calculator = Calculator;
             _getResult = GetResult;
             _setResult = SetResult;
             _getHistory = GetHistory;

@@ -2,8 +2,8 @@
 {
     public class EngineDecorator : ICalculator
     {
-        private ICalculator _wrappee;
-        EngineDecorator(ICalculator wrappee) => _wrappee = wrappee;
+        protected ICalculator _wrappee;
+        public EngineDecorator(ICalculator wrappee) => _wrappee = wrappee;
 
         virtual public string Calculate(string expression)
         {

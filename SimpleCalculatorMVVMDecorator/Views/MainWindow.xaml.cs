@@ -95,16 +95,16 @@ namespace SimpleCalculatorMVVMDecorator
                     UIButton.Command = _viewModel.DigitButtonClickCommand;
                     UIButton.CommandParameter = button.OnClick();
 
-                    Grid.SetRow(UIButton, int.Parse(button.OnClick()) / 3 + 1);
-                    Grid.SetColumn(UIButton, int.Parse(button.OnClick()) % 3);
+                    Grid.SetRow(UIButton, (9 - int.Parse(button.OnClick())) / 3 + 1);
+                    Grid.SetColumn(UIButton, (9 - int.Parse(button.OnClick())) % 3);
                 }
                 else if (button is ConstButton)
                 {
                     UIButton.Command = _viewModel.ConstButtonClickCommand;
                     UIButton.CommandParameter = button.OnClick();
 
-                    Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 0);
+                    Grid.SetRow(UIButton, 4);
+                    Grid.SetColumn(UIButton, 2);
                 }
                 else if (button is OperatorButton)
                 {
@@ -120,15 +120,15 @@ namespace SimpleCalculatorMVVMDecorator
                 {
                     UIButton.Command = _viewModel.EqualsButtonClickCommand;
 
-                    Grid.SetRow(UIButton, 4);
-                    Grid.SetColumn(UIButton, 2);
+                    Grid.SetRow(UIButton, 0);
+                    Grid.SetColumn(UIButton, 3);
                 }
                 else if (button is ClearButton)
                 {
                     UIButton.Command = _viewModel.ClearButtonClickCommand;
 
                     Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 2);
+                    Grid.SetColumn(UIButton, 0);
                     Grid.SetColumnSpan(UIButton, 2);
                 }
                 else if (button is PointButton)
@@ -143,7 +143,7 @@ namespace SimpleCalculatorMVVMDecorator
                     UIButton.Command = _viewModel.DeleteLastSymbolButtonClickCommand;
 
                     Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 1);
+                    Grid.SetColumn(UIButton, 2);
                 }
             }
         }
