@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorFactory", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVM", "SimpleCalculatorMVVM\SimpleCalculatorMVVM.csproj", "{E19B3C5C-0BF7-1A0D-899A-0560E2ACD8D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculatorMVVMPattern", "SimpleCalculatorPattern\SimpleCalculatorMVVMPattern.csproj", "{032B189E-B675-341C-5853-74BD479A6FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E19B3C5C-0BF7-1A0D-899A-0560E2ACD8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E19B3C5C-0BF7-1A0D-899A-0560E2ACD8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E19B3C5C-0BF7-1A0D-899A-0560E2ACD8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032B189E-B675-341C-5853-74BD479A6FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032B189E-B675-341C-5853-74BD479A6FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032B189E-B675-341C-5853-74BD479A6FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032B189E-B675-341C-5853-74BD479A6FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
