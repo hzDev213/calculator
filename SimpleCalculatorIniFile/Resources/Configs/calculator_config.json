@@ -1,0 +1,63 @@
+{
+  "defaultTheme": "dark",
+  "window": {
+    "width": 320,
+    "height": 500,
+    "minWidth": 250,
+    "minHeight": 400,
+    "title": "Calculator"
+  },
+  "fonts": {
+    "buttonFontFamily": "Segoe UI",
+    "buttonFontSize": 24,
+    "displayFontSize": 48,
+    "historyFontSize": 16,
+    "menuFontSize": 14
+  },
+  "themes": {
+    "dark": {
+      "displayName": "Тёмная тема",
+      "description": "Тёмный интерфейс",
+      "colors": {
+        "WindowBackgroundColor":      "#1E1E1E",
+        "DigitButtonBackgroundColor": "#2D2D2D",
+        "DigitButtonForegroundColor": "#FFFFFF",
+        "OperatorButtonBackgroundColor": "#323232",
+        "OperatorButtonForegroundColor": "#4CC2FF",
+        "EqualsButtonBackgroundColor":   "#4CC2FF",
+        "EqualsButtonForegroundColor":   "#000000",
+        "DisplayForegroundColor":        "#FFFFFF",
+        "HistoryForegroundColor":        "#888888",
+        "MenuBackgroundColor":           "#2A2A2A",
+        "MenuBorderColor":               "#444444",
+        "MenuItemForegroundColor":       "#FFFFFF",
+        "ButtonHoverColor":              "#646464",
+        "ButtonPressedColor":            "#969696",
+        "MenuHoverColor":                "#333333",
+        "MenuPressedColor":              "#444444"
+      }
+    },
+    "light": {
+      "displayName": "Светлая тема",
+      "description": "Светлый интерфейс",
+      "colors": {
+        "WindowBackgroundColor":      "#F5F5F5",
+        "DigitButtonBackgroundColor": "#FFFFFF",
+        "DigitButtonForegroundColor": "#1E1E1E",
+        "OperatorButtonBackgroundColor": "#E0E0E0",
+        "OperatorButtonForegroundColor": "#0078D4",
+        "EqualsButtonBackgroundColor":   "#0078D4",
+        "EqualsButtonForegroundColor":   "#FFFFFF",
+        "DisplayForegroundColor":        "#1E1E1E",
+        "HistoryForegroundColor":        "#666666",
+        "MenuBackgroundColor":           "#FFFFFF",
+        "MenuBorderColor":               "#CCCCCC",
+        "MenuItemForegroundColor":       "#1E1E1E",
+        "ButtonHoverColor":              "#D0D0D0",
+        "ButtonPressedColor":            "#B8B8B8",
+        "MenuHoverColor":                "#EEEEEE",
+        "MenuPressedColor":              "#DDDDDD"
+      }
+    }
+  }
+}

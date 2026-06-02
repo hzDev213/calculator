@@ -1,4 +1,4 @@
-﻿namespace SimpleCalculatorMVVMResourse.Services.Calculators
+﻿namespace SimpleCalculatorMVVMIniFile.Services.Calculators
 {
     public class EngineDecorator : ICalculator
     {

@@ -1,7 +1,7 @@
-﻿<Application x:Class="SimpleCalculatorMVVMResourse.App"
+﻿<Application x:Class="SimpleCalculatorMVVMIniFile.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SimpleCalculatorMVVMResourse"
+             xmlns:local="clr-namespace:SimpleCalculatorMVVMIniFile"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
          

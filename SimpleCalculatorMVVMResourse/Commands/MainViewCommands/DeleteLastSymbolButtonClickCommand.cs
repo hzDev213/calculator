@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleCalculatorMVVMResourse.Commands.MainViewCommands
+namespace SimpleCalculatorMVVMIniFile.Commands.MainViewCommands
 {
     public class DeleteLastSymbolButtonClickCommand : Command
     {

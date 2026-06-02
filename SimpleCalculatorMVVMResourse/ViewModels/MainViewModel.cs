@@ -1,10 +1,10 @@
-﻿using SimpleCalculatorMVVMResourse.Commands.MainViewCommands;
-using SimpleCalculatorMVVMResourse.Services.Calculators;
+﻿using SimpleCalculatorMVVMIniFile.Commands.MainViewCommands;
+using SimpleCalculatorMVVMIniFile.Services.Calculators;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SimpleCalculatorMVVMResourse.ViewModels
+namespace SimpleCalculatorMVVMIniFile.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SimpleCalculatorMVVMResourse.Services.Calculators
+namespace SimpleCalculatorMVVMIniFile.Services.Calculators
 {
     public class CalculatorEngine : ICalculator
     {

@@ -1,11 +1,11 @@
-﻿using SimpleCalculatorMVVMResourse.Models.Buttons;
+﻿using SimpleCalculatorMVVMIniFile.Models.Buttons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleCalculatorMVVMResourse.Factories.ButtonFactories
+namespace SimpleCalculatorMVVMIniFile.Factories.ButtonFactories
 {
     internal class CommonButtonFactory : IButtonFactory
     {

@@ -1,6 +1,6 @@
-﻿using SimpleCalculatorMVVMResourse.Services.Calculators;
+﻿using SimpleCalculatorMVVMIniFile.Services.Calculators;
 
-namespace SimpleCalculatorMVVMResourse.Commands.MainViewCommands
+namespace SimpleCalculatorMVVMIniFile.Commands.MainViewCommands
 {
     internal class OperatorButtonClickCommand : Command
     {

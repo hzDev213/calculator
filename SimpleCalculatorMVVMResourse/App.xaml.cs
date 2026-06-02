@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace SimpleCalculatorMVVMResourse
+namespace SimpleCalculatorMVVMIniFile
 {
     /// <summary>
     /// Interaction logic for App.xaml

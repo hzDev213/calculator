@@ -1,4 +1,4 @@
-﻿namespace SimpleCalculatorMVVMResourse.Models.Buttons
+﻿namespace SimpleCalculatorMVVMIniFile.Models.Buttons
 {
     internal class PointButton : IButton
     {

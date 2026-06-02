@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SimpleCalculatorMVVMResourse.ViewModels
+namespace SimpleCalculatorMVVMIniFile.ViewModels
 {
     public abstract class ViewModel : INotifyPropertyChanged
     {

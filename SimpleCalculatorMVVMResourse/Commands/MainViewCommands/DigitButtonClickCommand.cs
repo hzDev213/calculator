@@ -1,4 +1,4 @@
-﻿namespace SimpleCalculatorMVVMResourse.Commands.MainViewCommands
+﻿namespace SimpleCalculatorMVVMIniFile.Commands.MainViewCommands
 {
     public class DigitButtonClickCommand : Command
     {

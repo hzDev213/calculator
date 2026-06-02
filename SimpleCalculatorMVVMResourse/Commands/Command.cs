@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace SimpleCalculatorMVVMResourse.Commands
+namespace SimpleCalculatorMVVMIniFile.Commands
 {
     public abstract class Command : ICommand
     {

@@ -1,11 +1,11 @@
-﻿using SimpleCalculatorMVVMResourse.ViewModels;
+﻿using SimpleCalculatorMVVMIniFile.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace SimpleCalculatorMVVMResourse
+namespace SimpleCalculatorMVVMIniFile
 {
     public partial class MainWindow : Window
     {

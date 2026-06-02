@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace SimpleCalculatorMVVMResourse.Services.Calculators
+namespace SimpleCalculatorMVVMIniFile.Services.Calculators
 {
     public class EnginePiDecorator : EngineDecorator
     {
