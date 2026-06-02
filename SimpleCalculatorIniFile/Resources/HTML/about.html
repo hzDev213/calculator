@@ -13,68 +13,23 @@
             color: #333;
             background-color: #f8f9fa;
         }
-
         .container {
             background: white;
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         h1 {
             color: #1e1e1e;
             border-bottom: 3px solid #4CC2FF;
             padding-bottom: 10px;
         }
-
         h2 {
             color: #2c3e50;
             margin-top: 25px;
             border-left: 4px solid #4CC2FF;
             padding-left: 15px;
         }
-
-        .badge {
-            display: inline-block;
-            background: #4CC2FF;
-            color: #1e1e1e;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .tech-item {
-            background: #e9ecef;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: monospace;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-
-        th, td {
-            border: 1px solid #dee2e6;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f1f3f5;
-        }
-
         .nav-links {
             display: flex;
             gap: 20px;
@@ -83,22 +38,20 @@
             padding: 10px;
             background-color: #f8f9fa;
             border-radius: 8px;
+            flex-wrap: wrap;
         }
-
-            .nav-links a {
-                color: #4CC2FF;
-                text-decoration: none;
-                font-weight: bold;
-                padding: 8px 16px;
-                border-radius: 6px;
-                transition: background-color 0.2s;
-            }
-
-                .nav-links a:hover {
-                    background-color: #e9ecef;
-                    text-decoration: underline;
-                }
-
+        .nav-links a {
+            color: #4CC2FF;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .nav-links a:hover {
+            background-color: #e9ecef;
+            text-decoration: underline;
+        }
         .footer {
             margin-top: 30px;
             font-size: 0.85em;
@@ -110,56 +63,58 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🧮 Калькулятор на WPF <span style="font-size:0.8rem;">v1.0</span></h1>
-        <p>Современный калькулятор с горячих клавиш и сменой тем. <br>Разработан с использованием паттернов <strong>MVVM</strong> и <strong>Decorator</strong>.</p>
+<div class="container">
+    <h1>🧮 Калькулятор на WPF <span style="font-size:0.8rem;">v1.0</span></h1>
+    <p>Современный калькулятор с горячими клавишами, сменой тем и гибкой настройкой через JSON.</p>
 
-        <div class="nav-links">
-            <a href="shortcuts.html">⌨️ Горячие клавиши</a>
-        </div>
-
-        <h2>⚙️ Технологический стек</h2>
-        <div class="tech-list">
-            <span class="tech-item">.NET 8+</span>
-            <span class="tech-item">WPF</span>
-            <span class="tech-item">C# 12</span>
-            <span class="tech-item">MVVM</span>
-            <span class="tech-item">Decorator Pattern</span>
-            <span class="tech-item">Factory Method</span>
-        </div>
-
-        <h2>📐 Поддерживаемые операции</h2>
-        <ul>
-            <li><strong>Арифметика:</strong> +, -, ×, ÷</li>
-            <li><strong>Константы:</strong> π (пи) — ввод с кнопки или через <code>P</code> → <code>I</code></li>
-        </ul>
-
-        <h2>🏗️ Архитектура проекта</h2>
-        <p>Проект строго разделён на слои в соответствии с паттерном MVVM:</p>
-        <ul>
-            <li><strong>View (MainWindow.xaml)</strong> — XAML-разметка, стили, привязки</li>
-            <li><strong>ViewModel (MainWindowViewModel)</strong> — логика представления, команды, состояние</li>
-            <li><strong>Model</strong> — бизнес-логика (CalculatorEngine), декораторы, фабрики кнопок</li>
-        </ul>
-
-        <h2>🧩 Ключевые паттерны</h2>
-        <table>
-            <tr><th>Паттерн</th><th>Где используется</th><th>Назначение</th></tr>
-            <tr><td><code>Decorator</code></td><td><code>EnginePiDecorator</code></td><td>Динамическое добавление обработки константы π без изменения основного движка.</td></tr>
-            <tr><td><code>Factory Method</code></td><td><code>CommonButtonFactory</code></td><td>Централизованное создание всех типов кнопок (цифровые, операторы, константы).</td></tr>
-        </table>
-
-        <h2>🎨 Возможности интерфейса</h2>
-        <ul>
-            <li>✅ Смена темы: <strong>Тёмная / Светлая</strong> (через меню-гамбургер)</li>
-            <li>✅ Адаптивный дизайн — окно масштабируется без потери функциональности</li>
-            <li>✅ Тактильная обратная связь: анимация нажатия кнопок</li>
-            <li>✅ Звуковое сопровождение: раздельные звуки для обычных кнопок и "="</li>
-        </ul>
-
-        <div class="footer">
-            <p>© 2026 Калькулятор. Кохан и Бученков</p>
-        </div>
+    <div class="nav-links">
+        <a href="shortcuts.html">⌨️ Горячие клавиши</a>
+        <a href="config_help.html">⚙️ Конфигурация</a>
     </div>
+
+    <h2>⚙️ Технологический стек</h2>
+    <div class="tech-list">
+        <span class="tech-item">.NET 8+</span>
+        <span class="tech-item">WPF</span>
+        <span class="tech-item">C# 12</span>
+        <span class="tech-item">MVVM</span>
+        <span class="tech-item">Decorator Pattern</span>
+        <span class="tech-item">Factory Method</span>
+    </div>
+
+    <h2>📐 Поддерживаемые операции</h2>
+    <ul>
+        <li><strong>Арифметика:</strong> +, -, ×, ÷</li>
+        <li><strong>Константы:</strong> π (пи) — ввод с кнопки или через <code>P</code> → <code>I</code></li>
+    </ul>
+
+    <h2>🏗️ Архитектура проекта</h2>
+    <p>Проект строго разделён на слои в соответствии с паттерном MVVM:</p>
+    <ul>
+        <li><strong>View (MainWindow.xaml)</strong> — XAML-разметка, стили, привязки</li>
+        <li><strong>ViewModel (MainWindowViewModel)</strong> — логика представления, команды, состояние</li>
+        <li><strong>Model</strong> — бизнес-логика (CalculatorEngine), декораторы, фабрики кнопок</li>
+    </ul>
+
+    <h2>🧩 Ключевые паттерны</h2>
+    <table>
+        <tr><th>Паттерн</th><th>Где используется</th><th>Назначение</th></tr>
+        <tr><td><code>Decorator</code></td><td><code>EnginePiDecorator</code></td><td>Динамическое добавление обработки константы π</td></tr>
+        <tr><td><code>Factory Method</code></td><td><code>CommonButtonFactory</code></td><td>Централизованное создание кнопок</td></tr>
+    </table>
+
+    <h2>🎨 Возможности интерфейса</h2>
+    <ul>
+        <li>✅ Смена темы: <strong>Тёмная / Светлая</strong> (через меню-гамбургер)</li>
+        <li>✅ Адаптивный дизайн — окно масштабируется</li>
+        <li>✅ Тактильная обратная связь: анимация нажатия кнопок</li>
+        <li>✅ Звуковое сопровождение</li>
+        <li>✅ Гибкая настройка через <code>calculator_config.json</code></li>
+    </ul>
+
+    <div class="footer">
+        <p>© 2026 Калькулятор. Кохан и Бученков</p>
+    </div>
+</div>
 </body>
 </html>

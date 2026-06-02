@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Конфигурация | WPF Калькулятор</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1e1e1e;
+            border-bottom: 3px solid #4CC2FF;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+            border-left: 4px solid #4CC2FF;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+            padding-left: 10px;
+            border-left: 3px solid #4CC2FF;
+        }
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px 0;
+        }
+        .param-table th, .param-table td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .param-table th {
+            background-color: #f1f3f5;
+            font-weight: bold;
+        }
+        .param-name {
+            font-family: monospace;
+            font-weight: bold;
+            background-color: #f4f4f4;
+        }
+        .default-value {
+            font-family: monospace;
+            color: #4CC2FF;
+        }
+        .json-example {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 13px;
+            margin: 15px 0;
+        }
+        .note {
+            background-color: #e7f3ff;
+            border-left: 4px solid #4CC2FF;
+            padding: 12px 16px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #4CC2FF;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        .nav-links a:hover {
+            background-color: #e9ecef;
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.85em;
+            color: #6c757d;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            padding-top: 20px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>⚙️ Конфигурационный файл калькулятора</h1>
+    <p>Файл <code>calculator_config.json</code> позволяет настраивать внешний вид, размеры окна, шрифты и цветовые темы приложения без перекомпиляции.</p>
+
+    <div class="nav-links">
+        <a href="about.html">ℹ️ О программе</a>
+        <a href="shortcuts.html">⌨️ Горячие клавиши</a>
+    </div>
+
+    <h2>📁 Расположение файла</h2>
+    <p>Приложение ищет <code>calculator_config.json</code> в следующих местах (по порядку):</p>
+    <ol>
+        <li>Рядом с исполняемым файлом (<code>bin/Debug/net8.0/</code>)</li>
+        <li>В корневой папке проекта (<code>../../../</code>)</li>
+        <li>В папке <code>Resources/Configs/</code> проекта</li>
+    </ol>
+    <p>Если файл не найден или содержит ошибки, приложение использует настройки по умолчанию и показывает предупреждение.</p>
+
+    <div class="note">
+        <strong>💡 Совет:</strong> Для разработки удобно держать файл в корне проекта. При публикации поместите его рядом с <code>.exe</code>.
+    </div>
+
+    <h2>📋 Структура конфигурации</h2>
+
+    <h3>🔷 Корневой объект</h3>
+    <table class="param-table">
+        <tr>
+            <th>Параметр</th>
+            <th>Тип</th>
+            <th>Описание</th>
+            <th>Значение по умолчанию</th>
+        </tr>
+        <tr>
+            <td class="param-name">defaultTheme</td>
+            <td>string</td>
+            <td>Название темы, которая будет применена при запуске</td>
+            <td class="default-value">"dark"</td>
+        </tr>
+        <tr>
+            <td class="param-name">window</td>
+            <td>object</td>
+            <td>Настройки окна приложения</td>
+            <td class="default-value">см. таблицу ниже</td>
+        </tr>
+        <tr>
+            <td class="param-name">fonts</td>
+            <td>object</td>
+            <td>Настройки шрифтов</td>
+            <td class="default-value">см. таблицу ниже</td>
+        </tr>
+        <tr>
+            <td class="param-name">themes</td>
+            <td>object</td>
+            <td>Словарь цветовых тем (ключ — имя темы)</td>
+            <td class="default-value">"dark" и "light"</td>
+        </tr>
+    </table>
+
+    <h3>🪟 Объект <code>window</code></h3>
+    <table class="param-table">
+        <tr>
+            <th>Параметр</th>
+            <th>Тип</th>
+            <th>Описание</th>
+            <th>Значение по умолчанию</th>
+        </tr>
+        <tr>
+            <td class="param-name">width</td>
+            <td>double</td>
+            <td>Ширина окна при запуске (пиксели)</td>
+            <td class="default-value">320</td>
+        </tr>
+        <tr>
+            <td class="param-name">height</td>
+            <td>double</td>
+            <td>Высота окна при запуске (пиксели)</td>
+            <td class="default-value">500</td>
+        </tr>
+        <tr>
+            <td class="param-name">minWidth</td>
+            <td>double</td>
+            <td>Минимальная ширина окна</td>
+            <td class="default-value">250</td>
+        </tr>
+        <tr>
+            <td class="param-name">minHeight</td>
+            <td>double</td>
+            <td>Минимальная высота окна</td>
+            <td class="default-value">400</td>
+        </tr>
+        <tr>
+            <td class="param-name">title</td>
+            <td>string</td>
+            <td>Заголовок окна</td>
+            <td class="default-value">"Calculator"</td>
+        </tr>
+    </table>
+
+    <h3>🔤 Объект <code>fonts</code></h3>
+    <table class="param-table">
+        <tr>
+            <th>Параметр</th>
+            <th>Тип</th>
+            <th>Описание</th>
+            <th>Значение по умолчанию</th>
+        </tr>
+        <tr>
+            <td class="param-name">buttonFontFamily</td>
+            <td>string</td>
+            <td>Название шрифта для кнопок</td>
+            <td class="default-value">"Segoe UI"</td>
+        </tr>
+        <tr>
+            <td class="param-name">buttonFontSize</td>
+            <td>double</td>
+            <td>Размер шрифта кнопок (пиксели)</td>
+            <td class="default-value">24</td>
+        </tr>
+        <tr>
+            <td class="param-name">displayFontSize</td>
+            <td>double</td>
+            <td>Размер шрифта дисплея (пиксели)</td>
+            <td class="default-value">48</td>
+        </tr>
+        <tr>
+            <td class="param-name">historyFontSize</td>
+            <td>double</td>
+            <td>Размер шрифта истории</td>
+            <td class="default-value">16</td>
+        </tr>
+        <tr>
+            <td class="param-name">menuFontSize</td>
+            <td>double</td>
+            <td>Размер шрифта меню</td>
+            <td class="default-value">14</td>
+        </tr>
+    </table>
+
+    <h3>🎨 Объект <code>themes</code></h3>
+    <p>Каждая тема имеет ключ (например, <code>"dark"</code>) и объект с полями:</p>
+    <table class="param-table">
+        <tr>
+            <th>Параметр</th>
+            <th>Тип</th>
+            <th>Описание</th>
+        </tr>
+        <tr>
+            <td class="param-name">displayName</td>
+            <td>string</td>
+            <td>Название темы для отображения в меню</td>
+        </tr>
+        <tr>
+            <td class="param-name">description</td>
+            <td>string</td>
+            <td>Краткое описание темы</td>
+        </tr>
+        <tr>
+            <td class="param-name">colors</td>
+            <td>object</td>
+            <td>Словарь цветов в формате HEX (ключ → значение #RRGGBB)</td>
+        </tr>
+    </table>
+
+    <h4>Доступные цвета в теме:</h4>
+    <table class="param-table">
+        <tr><th>Ключ цвета</th><th>Описание</th></tr>
+        <tr><td class="param-name">WindowBackgroundColor</td><td>Фон окна</td></tr>
+        <tr><td class="param-name">DigitButtonBackgroundColor</td><td>Фон цифровых кнопок</td></tr>
+        <tr><td class="param-name">DigitButtonForegroundColor</td><td>Цвет текста цифровых кнопок</td></tr>
+        <tr><td class="param-name">OperatorButtonBackgroundColor</td><td>Фон кнопок операторов</td></tr>
+        <tr><td class="param-name">OperatorButtonForegroundColor</td><td>Цвет текста кнопок операторов</td></tr>
+        <tr><td class="param-name">EqualsButtonBackgroundColor</td><td>Фон кнопки «=»</td></tr>
+        <tr><td class="param-name">EqualsButtonForegroundColor</td><td>Цвет текста кнопки «=»</td></tr>
+        <tr><td class="param-name">DisplayForegroundColor</td><td>Цвет текста на дисплее</td></tr>
+        <tr><td class="param-name">HistoryForegroundColor</td><td>Цвет текста истории</td></tr>
+        <tr><td class="param-name">MenuBackgroundColor</td><td>Фон выпадающего меню</td></tr>
+        <tr><td class="param-name">MenuBorderColor</td><td>Цвет границы меню</td></tr>
+        <tr><td class="param-name">MenuItemForegroundColor</td><td>Цвет текста пунктов меню</td></tr>
+        <tr><td class="param-name">ButtonHoverColor</td><td>Цвет кнопки при наведении</td></tr>
+        <tr><td class="param-name">ButtonPressedColor</td><td>Цвет кнопки при нажатии</td></tr>
+        <tr><td class="param-name">MenuHoverColor</td><td>Цвет пункта меню при наведении</td></tr>
+        <tr><td class="param-name">MenuPressedColor</td><td>Цвет пункта меню при нажатии</td></tr>
+    </table>
+
+    <h2>📝 Пример полного конфигурационного файла</h2>
+    <div class="json-example">
+{
+  "defaultTheme": "dark",
+
+  "window": {
+    "width": 360,
+    "height": 540,
+    "minWidth": 280,
+    "minHeight": 420,
+    "title": "Мой калькулятор"
+  },
+
+  "fonts": {
+    "buttonFontFamily": "Consolas",
+    "buttonFontSize": 22,
+    "displayFontSize": 44,
+    "historyFontSize": 14,
+    "menuFontSize": 12
+  },
+
+  "themes": {
+    "dark": {
+      "displayName": "Тёмная тема",
+      "description": "Ночной режим",
+      "colors": {
+        "WindowBackgroundColor": "#1E1E1E",
+        "DigitButtonBackgroundColor": "#2D2D2D",
+        "DigitButtonForegroundColor": "#FFFFFF"
+      }
+    },
+    "light": {
+      "displayName": "Светлая тема",
+      "description": "Дневной режим",
+      "colors": {
+        "WindowBackgroundColor": "#F5F5F5",
+        "DigitButtonBackgroundColor": "#FFFFFF",
+        "DigitButtonForegroundColor": "#1E1E1E"
+      }
+    }
+  }
+}
+    </div>
+
+    <h2>🔄 Как изменения повлияют на приложение</h2>
+    <ul>
+        <li><strong>Изменение <code>defaultTheme</code></strong> — приложение запустится с указанной темой.</li>
+        <li><strong>Изменение размеров окна</strong> — окно калькулятора откроется с новыми размерами.</li>
+        <li><strong>Изменение шрифтов</strong> — все кнопки, дисплей и меню изменят шрифт и размер.</li>
+        <li><strong>Добавление новой темы</strong> — новая тема появится в меню выбора.</li>
+        <li><strong>Изменение цветов</strong> — интерфейс перекрасится в соответствии с новыми HEX-кодами.</li>
+    </ul>
+
+    <div class="note">
+        <strong>⚠️ Важно:</strong> HEX-коды должны начинаться с символа <code>#</code> (например, <code>#FF5733</code>). Приложение игнорирует лишние запятые и комментарии в JSON.
+    </div>
+
+    <div class="footer">
+        <p>© 2026 Калькулятор. Кохан и Бученков</p>
+    </div>
+</div>
+</body>
+</html>
