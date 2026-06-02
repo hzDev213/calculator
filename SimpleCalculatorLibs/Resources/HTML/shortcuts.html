@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Горячие клавиши | WPF Калькулятор</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+        }
+        .header {
+            background: #1e1e2e;
+            color: white;
+            padding: 20px 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-weight: 500;
+        }
+        .content {
+            padding: 25px 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 12px 8px;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        kbd {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85em;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+            display: inline-block;
+        }
+        .badge-key {
+            background-color: #e9ecef;
+            font-family: monospace;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .footer {
+            padding: 15px 30px;
+            background: #f8f9fa;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>⌨️ Горячие клавиши</h1>
+        <p>Управляйте калькулятором не отрывая рук от клавиатуры</p>
+    </div>
+    <div class="content">
+        <h3>🔢 Цифры и ввод</h3>
+        <table>
+            <tr><th>Действие</th><th>Клавиши</th></tr>
+            <tr><td>Цифры 0-9</td><td><kbd>0</kbd>–<kbd>9</kbd> или <kbd>NumPad0</kbd>–<kbd>NumPad9</kbd></td></tr>
+            <tr><td>Десятичная точка</td><td><kbd>.</kbd> или <kbd>,</kbd> (NumPad)</td></tr>
+            <tr><td>Удалить последний символ</td><td><kbd>Backspace</kbd> (⌫)</td></tr>
+        </table>
+
+        <h3>🧮 Операции</h3>
+        <table>
+            <tr><th>Действие</th><th>Клавиши</th></tr>
+            <tr><td>Сложение (+)</td><td><kbd>+</kbd> или <kbd>NumPad+</kbd></td></tr>
+            <tr><td>Вычитание (-)</td><td><kbd>-</kbd> или <kbd>NumPad-</kbd></td></tr>
+            <tr><td>Умножение (×)</td><td><kbd>*</kbd> или <kbd>NumPad*</kbd></td></tr>
+            <tr><td>Деление (÷)</td><td><kbd>/</kbd> или <kbd>NumPad/</kbd></td></tr>
+        </table>
+
+        <h3>⚡ Специальные функции</h3>
+        <table>
+            <tr><th>Действие</th><th>Комбинация</th></tr>
+            <tr><td>Константа π</td><td><kbd>P</kbd> → <kbd>I</kbd> (последовательно)</td></tr>
+            <tr><td>Очистить (C)</td><td><kbd>C</kbd> или <kbd>Delete</kbd> или <kbd>Escape</kbd></td></tr>
+            <tr><td>Вычислить результат</td><td><kbd>Enter</kbd> или <kbd>Return</kbd></td></tr>
+        </table>
+
+        <div class="note">
+            <strong>💡 Совет:</strong> Комбинация <kbd>P</kbd>+<kbd>I</kbd> работает как последовательное нажатие: сначала <kbd>P</kbd>, затем <kbd>I</kbd>. Реализована специально для быстрого ввода π.
+        </div>
+    </div>
+    <div class="footer">
+        Полный список всех поддерживаемых клавиш доступен в разделе <code>MainWindow.xaml.cs</code> (словарь _keyMappings)
+    </div>
+
+        <div class="nav-links">
+            <a href="about.html">К главному меню</a>
+        </div>
+</div>
+</body>
+</html>
