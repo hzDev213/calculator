@@ -8,4 +8,32 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Icons\calculator.ico" />
+    <None Remove="Resources\Images\menu.png" />
+    <None Remove="Resources\Sounds\equals_button_click.mp3" />
+    <None Remove="Resources\Sounds\regular_button_click.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Sounds\equals_button_click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\regular_button_click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\calculator.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\menu.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>

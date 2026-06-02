@@ -5,53 +5,292 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleCalculatorMVVMResourse"
         xmlns:vm="clr-namespace:SimpleCalculatorMVVMResourse.ViewModels"
-        
         mc:Ignorable="d"
         Title="Calculator" Height="500" Width="320"
         MinHeight="400" MinWidth="250"
-        Background="#1E1E1E"
-        Focusable="True">
-
+        Background="{DynamicResource WindowBackground}"
+        Focusable="True"
+        Icon="/Resources/Icons/calculator.ico">
+    
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
 
-    <Grid Margin="10">
+    <Window.Resources>
+        <Color x:Key="WindowBackgroundColor">#1E1E1E</Color>
+        <Color x:Key="DigitButtonBackgroundColor">#2D2D2D</Color>
+        <Color x:Key="DigitButtonForegroundColor">White</Color>
+        <Color x:Key="OperatorButtonBackgroundColor">#323232</Color>
+        <Color x:Key="OperatorButtonForegroundColor">#4CC2FF</Color>
+        <Color x:Key="EqualsButtonBackgroundColor">#4CC2FF</Color>
+        <Color x:Key="EqualsButtonForegroundColor">Black</Color>
+        <Color x:Key="DisplayForegroundColor">White</Color>
+        <Color x:Key="HistoryForegroundColor">#888888</Color>
+        <Color x:Key="MenuBackgroundColor">#2A2A2A</Color>
+        <Color x:Key="MenuBorderColor">#444444</Color>
+        <Color x:Key="MenuItemForegroundColor">White</Color>
+        <Color x:Key="ButtonHoverColor">#646464</Color>
+        <Color x:Key="ButtonPressedColor">#969696</Color>
+        <Color x:Key="MenuHoverColor">#333333</Color>
+        <Color x:Key="MenuPressedColor">#444444</Color>
+
+        <SolidColorBrush x:Key="WindowBackground"         Color="{DynamicResource WindowBackgroundColor}"/>
+        <SolidColorBrush x:Key="DigitButtonBackground"    Color="{DynamicResource DigitButtonBackgroundColor}"/>
+        <SolidColorBrush x:Key="DigitButtonForeground"    Color="{DynamicResource DigitButtonForegroundColor}"/>
+        <SolidColorBrush x:Key="OperatorButtonBackground" Color="{DynamicResource OperatorButtonBackgroundColor}"/>
+        <SolidColorBrush x:Key="OperatorButtonForeground" Color="{DynamicResource OperatorButtonForegroundColor}"/>
+        <SolidColorBrush x:Key="EqualsButtonBackground"   Color="{DynamicResource EqualsButtonBackgroundColor}"/>
+        <SolidColorBrush x:Key="EqualsButtonForeground"   Color="{DynamicResource EqualsButtonForegroundColor}"/>
+        <SolidColorBrush x:Key="DisplayForeground"        Color="{DynamicResource DisplayForegroundColor}"/>
+        <SolidColorBrush x:Key="HistoryForeground"        Color="{DynamicResource HistoryForegroundColor}"/>
+        <SolidColorBrush x:Key="MenuBackground"           Color="{DynamicResource MenuBackgroundColor}"/>
+        <SolidColorBrush x:Key="MenuBorder"               Color="{DynamicResource MenuBorderColor}"/>
+        <SolidColorBrush x:Key="MenuItemForeground"       Color="{DynamicResource MenuItemForegroundColor}"/>
+        <SolidColorBrush x:Key="ButtonHover"              Color="{DynamicResource ButtonHoverColor}"/>
+        <SolidColorBrush x:Key="ButtonPressed"            Color="{DynamicResource ButtonPressedColor}"/>
+        <SolidColorBrush x:Key="MenuHover"                Color="{DynamicResource MenuHoverColor}"/>
+        <SolidColorBrush x:Key="MenuPressed"              Color="{DynamicResource MenuPressedColor}"/>
+
+        <Style x:Key="CalcButtonBase" TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonPressed}"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DigitButton" TargetType="Button" BasedOn="{StaticResource CalcButtonBase}">
+            <Setter Property="Background" Value="{DynamicResource DigitButtonBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource DigitButtonForeground}"/>
+        </Style>
+
+        <Style x:Key="OperatorButton" TargetType="Button" BasedOn="{StaticResource CalcButtonBase}">
+            <Setter Property="Background" Value="{DynamicResource OperatorButtonBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource OperatorButtonForeground}"/>
+        </Style>
+
+        <Style x:Key="EqualsButton" TargetType="Button" BasedOn="{StaticResource CalcButtonBase}">
+            <Setter Property="Background" Value="{DynamicResource EqualsButtonBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource EqualsButtonForeground}"/>
+        </Style>
+
+        <Style x:Key="ThemeMenuItem" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Foreground" Value="{DynamicResource MenuItemForeground}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuPressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="HistoryText" Text="{Binding HistoryText}" Grid.Row="0" Foreground="#888888" FontSize="16" TextAlignment="Right" Margin="0,0,10,0"/>
-        <TextBlock x:Name="DisplayText" Text="{Binding DisplayText}" Grid.Row="1" Foreground="White" FontSize="48" FontWeight="SemiBold" TextAlignment="Right" Margin="0,0,10,0"/>
+        <MediaElement x:Name="RegularSound"
+                      Source="Resources/Sounds/regular_button_click.mp3"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Stop"
+                      Volume="1"
+                      Visibility="Collapsed"/>
+        <MediaElement x:Name="EqualsSound"
+                      Source="Resources/Sounds/equals_button_click.mp3"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Stop"
+                      Volume="1"
+                      Visibility="Collapsed"/>
 
-        <ItemsControl ItemsSource="{Binding Buttons}" Grid.Row="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid x:Name="ButtonsContainer">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+        <ToggleButton x:Name="MenuToggleButton"
+                      Width="32"
+                      Height="32"
+                      Margin="6,3,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      Background="Transparent"
+                      BorderThickness="0">
+            <ToggleButton.Template>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="4">
+                        <Image Source="pack://application:,,,/Resources/Images/menu.png"
+                               Width="auto"
+                               Height="auto"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MenuPressed}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ToggleButton.Template>
+        </ToggleButton>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <ContentPresenter Content="{Binding}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Popup x:Name="MenuPopup"
+               PlacementTarget="{Binding ElementName=MenuToggleButton}"
+               Placement="Bottom"
+               HorizontalOffset="0"
+               VerticalOffset="5"
+               StaysOpen="False"
+               IsOpen="{Binding IsChecked, ElementName=MenuToggleButton, Mode=TwoWay}">
+            <Border Background="{DynamicResource MenuBackground}"
+                    BorderBrush="{DynamicResource MenuBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Padding="4">
+                <StackPanel MinWidth="180">
+                    <Button x:Name="DarkThemeButton"
+                            Style="{StaticResource ThemeMenuItem}"
+                            Click="DarkThemeButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="DarkThemeCheck"
+                                       Text="✓ "
+                                       Visibility="Visible"
+                                       Foreground="{DynamicResource OperatorButtonForeground}"/>
+                            <TextBlock Text="Тёмная тема"
+                                       Foreground="{DynamicResource MenuItemForeground}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="LightThemeButton"
+                            Style="{StaticResource ThemeMenuItem}"
+                            Click="LightThemeButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="LightThemeCheck"
+                                       Text="✓ "
+                                       Visibility="Collapsed"
+                                       Foreground="{DynamicResource OperatorButtonForeground}"/>
+                            <TextBlock Text="Светлая тема"
+                                       Foreground="{DynamicResource MenuItemForeground}"/>
+                        </StackPanel>
+                    </Button>
+                    <Separator Background="{DynamicResource MenuBorder}" Margin="4"/>
+                    <Button Style="{StaticResource ThemeMenuItem}" Click="OpenHelp_Click">
+                        <TextBlock Text="О программе" Foreground="{DynamicResource MenuItemForeground}"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <Grid Grid.Row="1" Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="HistoryText"
+                       Text="{Binding HistoryText}"
+                       Grid.Row="0"
+                       Foreground="{DynamicResource HistoryForeground}"
+                       FontSize="16"
+                       TextAlignment="Right"
+                       Margin="0,0,10,0"/>
+
+            <TextBlock x:Name="DisplayText"
+                       Text="{Binding DisplayText}"
+                       Grid.Row="1"
+                       Foreground="{DynamicResource DisplayForeground}"
+                       FontSize="48"
+                       FontWeight="SemiBold"
+                       TextAlignment="Right"
+                       Margin="0,0,10,0"/>
+
+            <Grid Grid.Row="2" Margin="0,4,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                        Content="C"
+                        Style="{StaticResource OperatorButton}"
+                        Command="{Binding ClearButtonClickCommand}"/>
+                <Button Grid.Row="0" Grid.Column="2"
+                        Content="⌫"
+                        Style="{StaticResource OperatorButton}"
+                        Command="{Binding DeleteLastSymbolButtonClickCommand}"/>
+                <Button Grid.Row="0" Grid.Column="3"
+                        Content="="
+                        Style="{StaticResource EqualsButton}"
+                        Command="{Binding EqualsButtonClickCommand}"/>
+
+                <Button Grid.Row="1" Grid.Column="0" Content="7" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="7"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="8" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="8"/>
+                <Button Grid.Row="1" Grid.Column="2" Content="9" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="9"/>
+                <Button Grid.Row="1" Grid.Column="3" Content="×" Style="{StaticResource OperatorButton}" Command="{Binding OperatorButtonClickCommand}" CommandParameter="*"/>
+
+                <Button Grid.Row="2" Grid.Column="0" Content="4" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="4"/>
+                <Button Grid.Row="2" Grid.Column="1" Content="5" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="5"/>
+                <Button Grid.Row="2" Grid.Column="2" Content="6" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="6"/>
+                <Button Grid.Row="2" Grid.Column="3" Content="−" Style="{StaticResource OperatorButton}" Command="{Binding OperatorButtonClickCommand}" CommandParameter="-"/>
+
+                <Button Grid.Row="3" Grid.Column="0" Content="1" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="1"/>
+                <Button Grid.Row="3" Grid.Column="1" Content="2" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="2"/>
+                <Button Grid.Row="3" Grid.Column="2" Content="3" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="3"/>
+                <Button Grid.Row="3" Grid.Column="3" Content="+" Style="{StaticResource OperatorButton}" Command="{Binding OperatorButtonClickCommand}" CommandParameter="+"/>
+
+                <Button Grid.Row="4" Grid.Column="0" Content="0" Style="{StaticResource DigitButton}" Command="{Binding DigitButtonClickCommand}" CommandParameter="0"/>
+                <Button Grid.Row="4" Grid.Column="1" Content="." Style="{StaticResource DigitButton}" Command="{Binding PointButtonClickCommand}"/>
+                <Button Grid.Row="4" Grid.Column="2" Content="π" Style="{StaticResource OperatorButton}" Command="{Binding ConstButtonClickCommand}" CommandParameter="π"/>
+                <Button Grid.Row="4" Grid.Column="3" Content="÷" Style="{StaticResource OperatorButton}" Command="{Binding OperatorButtonClickCommand}" CommandParameter="/"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

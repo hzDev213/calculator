@@ -1,6 +1,5 @@
-﻿using SimpleCalculatorMVVMResourse.Factories.ButtonFactories;
-using SimpleCalculatorMVVMResourse.Models.Buttons;
-using SimpleCalculatorMVVMResourse.ViewModels;
+﻿using SimpleCalculatorMVVMResourse.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,15 +9,19 @@ namespace SimpleCalculatorMVVMResourse
 {
     public partial class MainWindow : Window
     {
-        private bool _pKeyPrivious = false;
-
+        private bool _pKeyPrevious = false;
+        private bool _isDarkTheme = true;
         private MainWindowViewModel _viewModel;
         private readonly Dictionary<Key, (ICommand Command, object? Parameter)> _keyMappings;
+
+        private readonly MediaPlayer _regularSound = new MediaPlayer();
+        private readonly MediaPlayer _equalsSound = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
-
             _viewModel = (MainWindowViewModel)DataContext;
+
             _keyMappings = new Dictionary<Key, (ICommand, object?)>
             {
                 [Key.D0] = (_viewModel.DigitButtonClickCommand, "0"),
@@ -31,7 +34,6 @@ namespace SimpleCalculatorMVVMResourse
                 [Key.D7] = (_viewModel.DigitButtonClickCommand, "7"),
                 [Key.D8] = (_viewModel.DigitButtonClickCommand, "8"),
                 [Key.D9] = (_viewModel.DigitButtonClickCommand, "9"),
-
                 [Key.NumPad0] = (_viewModel.DigitButtonClickCommand, "0"),
                 [Key.NumPad1] = (_viewModel.DigitButtonClickCommand, "1"),
                 [Key.NumPad2] = (_viewModel.DigitButtonClickCommand, "2"),
@@ -42,203 +44,172 @@ namespace SimpleCalculatorMVVMResourse
                 [Key.NumPad7] = (_viewModel.DigitButtonClickCommand, "7"),
                 [Key.NumPad8] = (_viewModel.DigitButtonClickCommand, "8"),
                 [Key.NumPad9] = (_viewModel.DigitButtonClickCommand, "9"),
-
                 [Key.C] = (_viewModel.ClearButtonClickCommand, null),
-
+                [Key.Delete] = (_viewModel.ClearButtonClickCommand, null),
+                [Key.Escape] = (_viewModel.ClearButtonClickCommand, null),
                 [Key.Add] = (_viewModel.OperatorButtonClickCommand, "+"),
                 [Key.OemPlus] = (_viewModel.OperatorButtonClickCommand, "+"),
                 [Key.Subtract] = (_viewModel.OperatorButtonClickCommand, "-"),
                 [Key.OemMinus] = (_viewModel.OperatorButtonClickCommand, "-"),
                 [Key.Multiply] = (_viewModel.OperatorButtonClickCommand, "*"),
                 [Key.Divide] = (_viewModel.OperatorButtonClickCommand, "/"),
-                [Key.OemQuestion] = (_viewModel.OperatorButtonClickCommand, "/"),  // / на русской раскладке
-
+                [Key.OemQuestion] = (_viewModel.OperatorButtonClickCommand, "/"),
                 [Key.Decimal] = (_viewModel.PointButtonClickCommand, "."),
                 [Key.OemPeriod] = (_viewModel.PointButtonClickCommand, "."),
                 [Key.OemComma] = (_viewModel.PointButtonClickCommand, "."),
-
                 [Key.Enter] = (_viewModel.EqualsButtonClickCommand, null),
                 [Key.Return] = (_viewModel.EqualsButtonClickCommand, null),
                 [Key.Back] = (_viewModel.DeleteLastSymbolButtonClickCommand, null),
-                [Key.Delete] = (_viewModel.ClearButtonClickCommand, null),
-                [Key.Escape] = (_viewModel.ClearButtonClickCommand, null),
             };
 
-            CreateButtons();
-            this.KeyDown += OnKeyDown;
+            this.PreviewKeyDown += OnKeyDown;
+
+            _regularSound.Open(new Uri("Resources/Sounds/regular_button_click.mp3", UriKind.Relative));
+            _equalsSound.Open(new Uri("Resources/Sounds/equals_button_click.mp3", UriKind.Relative));
+
+            this.PreviewMouseLeftButtonDown += OnMouseButtonDown;
         }
-        private void CreateButtons()
+
+        private void PlayRegularSound()
         {
-            var btnFactory = new CommonButtonFactory();
-            var buttonsList = btnFactory.GetAllButtons();
-
-            int operatorRow = 1;
-
-            foreach (var button in buttonsList)
-            {
-                var UIButton = new Button
-                {
-                    Content = button.DisplayTitle(),
-                    Margin = new Thickness(2),
-                    FontSize = 24,
-                    FontFamily = new FontFamily("Segoe UI"),
-                    Tag = button
-                };
-
-                _viewModel.Buttons.Add(UIButton);
-
-                ApplyStyle(UIButton);
-
-                // Устанавливаем кнопки на грид
-                if (button is DigitButton)
-                {
-                    UIButton.Command = _viewModel.DigitButtonClickCommand;
-                    UIButton.CommandParameter = button.OnClick();
-
-                    Grid.SetRow(UIButton, (9 - int.Parse(button.OnClick())) / 3 + 1);
-                    Grid.SetColumn(UIButton, (9 - int.Parse(button.OnClick())) % 3);
-                }
-                else if (button is ConstButton)
-                {
-                    UIButton.Command = _viewModel.ConstButtonClickCommand;
-                    UIButton.CommandParameter = button.OnClick();
-
-                    Grid.SetRow(UIButton, 4);
-                    Grid.SetColumn(UIButton, 2);
-                }
-                else if (button is OperatorButton)
-                {
-                    UIButton.Command = _viewModel.OperatorButtonClickCommand;
-                    UIButton.CommandParameter = button.OnClick();
-
-                    Grid.SetColumn(UIButton, 3);
-                    Grid.SetRow(UIButton, operatorRow);
-
-                    ++operatorRow;
-                }
-                else if (button is EqualsButton)
-                {
-                    UIButton.Command = _viewModel.EqualsButtonClickCommand;
-
-                    Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 3);
-                }
-                else if (button is ClearButton)
-                {
-                    UIButton.Command = _viewModel.ClearButtonClickCommand;
-
-                    Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 0);
-                    Grid.SetColumnSpan(UIButton, 2);
-                }
-                else if (button is PointButton)
-                {
-                    UIButton.Command = _viewModel.PointButtonClickCommand;
-
-                    Grid.SetRow(UIButton, 4);
-                    Grid.SetColumn(UIButton, 1);
-                }
-                else if (button is DeleteLastSymbolButton)
-                {
-                    UIButton.Command = _viewModel.DeleteLastSymbolButtonClickCommand;
-
-                    Grid.SetRow(UIButton, 0);
-                    Grid.SetColumn(UIButton, 2);
-                }
-            }
+            _regularSound.Position = TimeSpan.Zero;
+            _regularSound.Play();
         }
-        private void ApplyStyle(Button button)
+
+        private void PlayEqualsSound()
         {
-            button.BorderThickness = new Thickness(0);
-            button.Cursor = Cursors.Hand;
+            _equalsSound.Position = TimeSpan.Zero;
+            _equalsSound.Play();
+        }
 
-            // Шаблон кнопки
-            var borderFactory = new FrameworkElementFactory(typeof(Border));
-            borderFactory.SetValue(Border.CornerRadiusProperty, new CornerRadius(8));
-            borderFactory.SetBinding(Border.BackgroundProperty, new System.Windows.Data.Binding("Background") { Source = button });
+        private void OnMouseButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var button = FindParentButton(e.OriginalSource as DependencyObject);
+            if (button == null) return;
 
-            var contentFactory = new FrameworkElementFactory(typeof(ContentPresenter));
-            contentFactory.SetValue(ContentPresenter.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-            contentFactory.SetValue(ContentPresenter.VerticalAlignmentProperty, VerticalAlignment.Center);
-
-            borderFactory.AppendChild(contentFactory);
-
-            var template = new ControlTemplate(typeof(Button))
-            {
-                VisualTree = borderFactory
-            };
-            // Реакция на клик
-            var mouseOverTrigger = new Trigger { Property = Button.IsMouseOverProperty, Value = true };
-            mouseOverTrigger.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(100, 100, 100))));
-            template.Triggers.Add(mouseOverTrigger);
-
-            var pressedTrigger = new Trigger { Property = Button.IsPressedProperty, Value = true };
-            pressedTrigger.Setters.Add(new Setter(Button.BackgroundProperty, new SolidColorBrush(Color.FromRgb(150, 150, 150))));
-            pressedTrigger.Setters.Add(new Setter(Button.RenderTransformProperty, new ScaleTransform(0.95, 0.95)));
-            template.Triggers.Add(pressedTrigger);
-
-            button.Template = template;
-
-            // Стилизация по типу
-            var logicButton = button.Tag;
-            if (logicButton is DigitButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(45, 45, 45));
-                button.Foreground = Brushes.White;
-            }
-            else if (logicButton is ConstButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
-            }
-            else if (logicButton is OperatorButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
-            }
-            else if (logicButton is EqualsButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(76, 194, 255));
-                button.Foreground = Brushes.Black;
-            }
-            else if (logicButton is ClearButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
-            }
-            else if (logicButton is PointButton)
-            {
-                button.Background = new SolidColorBrush(Color.FromRgb(45, 45, 45));
-                button.Foreground = Brushes.White;
-            }
+            if (button.Style == (Style)FindResource("EqualsButton"))
+                PlayEqualsSound();
             else
+                PlayRegularSound();
+        }
+
+        private static Button? FindParentButton(DependencyObject? element)
+        {
+            while (element != null)
             {
-                button.Background = new SolidColorBrush(Color.FromRgb(50, 50, 50));
-                button.Foreground = new SolidColorBrush(Color.FromRgb(76, 194, 255));
+                if (element is Button btn) return btn;
+                element = VisualTreeHelper.GetParent(element);
             }
+            return null;
+        }
+
+        private void DarkThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isDarkTheme) return;
+            ApplyDarkTheme();
+            MenuToggleButton.IsChecked = false;
+        }
+
+        private void LightThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!_isDarkTheme) return;
+            ApplyLightTheme();
+            MenuToggleButton.IsChecked = false;
+        }
+
+        private void ApplyDarkTheme()
+        {
+            _isDarkTheme = true;
+            SetColor("WindowBackgroundColor", "#1E1E1E");
+            SetColor("DigitButtonBackgroundColor", "#2D2D2D");
+            SetColor("DigitButtonForegroundColor", "#FFFFFF");
+            SetColor("OperatorButtonBackgroundColor", "#323232");
+            SetColor("OperatorButtonForegroundColor", "#4CC2FF");
+            SetColor("EqualsButtonBackgroundColor", "#4CC2FF");
+            SetColor("EqualsButtonForegroundColor", "#000000");
+            SetColor("DisplayForegroundColor", "#FFFFFF");
+            SetColor("HistoryForegroundColor", "#888888");
+            SetColor("MenuBackgroundColor", "#2A2A2A");
+            SetColor("MenuBorderColor", "#444444");
+            SetColor("MenuItemForegroundColor", "#FFFFFF");
+            SetColor("ButtonHoverColor", "#646464");
+            SetColor("ButtonPressedColor", "#969696");
+            SetColor("MenuHoverColor", "#333333");
+            SetColor("MenuPressedColor", "#444444");
+            DarkThemeCheck.Visibility = Visibility.Visible;
+            LightThemeCheck.Visibility = Visibility.Collapsed;
+        }
+
+        private void ApplyLightTheme()
+        {
+            _isDarkTheme = false;
+            SetColor("WindowBackgroundColor", "#F5F5F5");
+            SetColor("DigitButtonBackgroundColor", "#FFFFFF");
+            SetColor("DigitButtonForegroundColor", "#1E1E1E");
+            SetColor("OperatorButtonBackgroundColor", "#E0E0E0");
+            SetColor("OperatorButtonForegroundColor", "#0078D4");
+            SetColor("EqualsButtonBackgroundColor", "#0078D4");
+            SetColor("EqualsButtonForegroundColor", "#FFFFFF");
+            SetColor("DisplayForegroundColor", "#1E1E1E");
+            SetColor("HistoryForegroundColor", "#666666");
+            SetColor("MenuBackgroundColor", "#FFFFFF");
+            SetColor("MenuBorderColor", "#CCCCCC");
+            SetColor("MenuItemForegroundColor", "#1E1E1E");
+            SetColor("ButtonHoverColor", "#D0D0D0");
+            SetColor("ButtonPressedColor", "#B8B8B8");
+            SetColor("MenuHoverColor", "#EEEEEE");
+            SetColor("MenuPressedColor", "#DDDDDD");
+            DarkThemeCheck.Visibility = Visibility.Collapsed;
+            LightThemeCheck.Visibility = Visibility.Visible;
+        }
+
+        private void SetColor(string key, string hex)
+        {
+            Resources[key] = (Color)ColorConverter.ConvertFromString(hex);
+        }
+
+        private void OpenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            string helpPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../Resources/HTML/about.html");
+            if (System.IO.File.Exists(helpPath))
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(helpPath) { UseShellExecute = true });
+            else
+                MessageBox.Show("Файл справки не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             bool isCtrlPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Control);
             bool isAltPressed = Keyboard.Modifiers.HasFlag(ModifierKeys.Alt);
+            if (isCtrlPressed || isAltPressed) return;
 
-            if (!isCtrlPressed && !isAltPressed)
+            if (e.Key == Key.P)
             {
-                if (e.Key == Key.P) _pKeyPrivious = true;
-                if (e.Key == Key.I && _pKeyPrivious)
-                {
-                    _viewModel.ConstButtonClickCommand.Execute("π");
-                    _pKeyPrivious = false;
-                    e.Handled = true;
+                _pKeyPrevious = true;
+                return;
+            }
 
-                    return;
-                }
-                if (_keyMappings.TryGetValue(e.Key, out var mapping))
-                {
-                    mapping.Command.Execute(mapping.Parameter);
-                    e.Handled = true;
-                }
+            if (e.Key == Key.I && _pKeyPrevious)
+            {
+                _viewModel.ConstButtonClickCommand.Execute("π");
+                PlayRegularSound();
+                _pKeyPrevious = false;
+                e.Handled = true;
+                return;
+            }
+
+            _pKeyPrevious = false;
+
+            if (_keyMappings.TryGetValue(e.Key, out var mapping))
+            {
+                mapping.Command.Execute(mapping.Parameter);
+
+                if (e.Key == Key.Enter || e.Key == Key.Return)
+                    PlayEqualsSound();
+                else
+                    PlayRegularSound();
+
+                e.Handled = true;
             }
         }
     }
