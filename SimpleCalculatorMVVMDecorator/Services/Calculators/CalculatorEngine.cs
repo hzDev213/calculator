@@ -14,7 +14,6 @@ namespace SimpleCalculatorMVVMDecorator.Services.Calculators
 
                 // 1. Подготовка: заменяем запятые на точки для стандарта вычислений
                 string processedExpr = expression.Replace(",", ".");
-                //processedExpr = processedExpr.Replace("π", Math.PI.ToString(CultureInfo.InvariantCulture));
 
                 // 2. Обработка КОРНЯ: sqrt(x)
                 processedExpr = Regex.Replace(processedExpr, @"sqrt\(([^)]+)\)", m =>

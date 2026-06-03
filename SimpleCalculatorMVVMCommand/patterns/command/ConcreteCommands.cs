@@ -1,9 +1,5 @@
 namespace Calculator.Patterns.Command
 {
-    // ──────────────────────────────────────────────
-    // Конкретные команды (Concrete Commands)
-    // ──────────────────────────────────────────────
-
     public class AddCommand : ICalculatorCommand
     {
         public string OperationSymbol => "+";
