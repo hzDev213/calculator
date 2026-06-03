@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SimpleCalculatorLibs</RootNamespace>
+    <ApplicationIcon>Resources\Icons\calculator.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Sounds\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\Cursors\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\HTML\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <Resource Include="Resources\Icons\calculator.ico" />
+  <Resource Include="Resources\Images\menu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Calculator.Evaluator/Calculator.Evaluator.csproj" />
+    <ProjectReference Include="../Calculator.DevInfo/Calculator.DevInfo.csproj" />
+    <ProjectReference Include="..\Calculator.Memory\Calculator.Memory.csproj" />
+  </ItemGroup>
+</Project>
